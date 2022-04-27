@@ -1,5 +1,7 @@
 
 import 'package:demo_api_call/home/HomeScreen.dart';
+import 'package:demo_api_call/login/LoginScreen.dart';
+import 'package:demo_api_call/register/RegisterScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -26,7 +28,7 @@ class SplashState extends State<SplashView>{
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 3),(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
     });
   }
 }
