@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:demo_api_call/detail/DetailScreen.dart';
 import 'package:demo_api_call/home/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -43,6 +44,9 @@ class ListingView extends State<ListScreen> {
           itemBuilder: (BuildContext context, int index) {
             User userItem = user[index];
             return GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(userItem)));
+              },
               child: Container(
                   height: 100,
                   child: Card(
