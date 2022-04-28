@@ -1,5 +1,7 @@
 import 'package:demo_api_call/home/HomeScreen.dart';
+import 'package:demo_api_call/login/LoginScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -8,6 +10,25 @@ class RegisterScreen extends StatefulWidget {
 
 class RegisterView extends State<RegisterScreen> {
   bool _eyeIcon = true;
+  final conEmail = TextEditingController();
+  final conPassword = TextEditingController();
+  late  SharedPreferences prefs;
+
+
+
+
+   getPreference() async {
+     prefs = await SharedPreferences.getInstance();
+    return prefs;
+  }
+
+
+  @override
+  void initState() {
+    setState(() {
+      getPreference();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +54,7 @@ class RegisterView extends State<RegisterScreen> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 30, 20, 5),
                     child: TextFormField(
+                      controller: conEmail,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                           labelText: "Email",
@@ -44,6 +66,7 @@ class RegisterView extends State<RegisterScreen> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 10, 20, 5),
                     child: TextFormField(
+                      controller: conPassword,
                       obscureText: !_eyeIcon,
                       decoration: InputDecoration(
                           suffixIcon: IconButton(
@@ -67,7 +90,15 @@ class RegisterView extends State<RegisterScreen> {
                             padding: EdgeInsets.fromLTRB(0, 20, 0, 50),
                             child: RaisedButton(
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+
+                                setState(() {
+                                  prefs.setString('email',conEmail.text);
+                                  prefs.setString('password',conPassword.text);
+                                  print("Pref: ${prefs}");
+
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                                });
+
                               },
                               child: Text("Register"),
                             ))),
